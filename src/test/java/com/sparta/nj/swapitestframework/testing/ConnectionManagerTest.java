@@ -1,4 +1,4 @@
-package com.sparta.nj.swapitestframework.swapitestframeworktesting;
+package com.sparta.nj.swapitestframework.testing;
 
 import com.sparta.nj.swapitestframework.connection.ConnectionManager;
 import io.restassured.response.Response;
@@ -7,8 +7,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 
 public class ConnectionManagerTest {
     static Response lukeSkywalkerAPI;
