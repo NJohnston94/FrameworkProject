@@ -11,7 +11,7 @@ public class ConnectionManager {
     public ConnectionManager() {
     }
 
-    public Response connectToResource(String url) {
+    public static Response connectToResource(String url) {
         return RestAssured.get(url);
     }
 
