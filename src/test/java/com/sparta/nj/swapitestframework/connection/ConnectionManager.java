@@ -2,7 +2,6 @@ package com.sparta.nj.swapitestframework.connection;
 
 import io.restassured.RestAssured;
 import io.restassured.http.Header;
-import io.restassured.http.Headers;
 import io.restassured.response.Response;
 
 import java.util.List;
@@ -15,11 +14,20 @@ public class ConnectionManager {
         return RestAssured.get(url);
     }
 
-    public Integer getStatusCode(Response response) {
-        return response.getStatusCode();
+    public static Integer getStatusCode(Response response) {
+        int statusCode = response.getStatusCode();
+        System.out.println("Response returned with HTTP Status Code:: " + statusCode);
+
+        return statusCode;
     }
 
-    public List<Header> getResourceHeaders(Response response) {
-        return response.getHeaders().asList();
+    public static List<Header> getResourceHeaders(Response response) {
+        List<Header> resourceHeaders = response.getHeaders().asList();
+        System.out.println("Response returned with Headers::");
+        for(Header header:resourceHeaders) {
+            System.out.println("   " + header);
+        }
+
+        return resourceHeaders;
     }
 }

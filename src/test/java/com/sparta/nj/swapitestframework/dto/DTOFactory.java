@@ -15,4 +15,6 @@ public class DTOFactory {
 
         return null;
     }
+
+    public int selectDTOFromURL()
 }
