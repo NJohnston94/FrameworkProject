@@ -24,12 +24,22 @@ public class StarWarsAPITester {
             return ConnectionManager.connectToResource(url);
         }
 
-        public static boolean testStatusCode(String url) throws BadStatusCodeException {
-            return ConnectionManager.getStatusCode(url);
+        public static boolean testStatusCode(String url) {
+            try{
+                return ConnectionManager.getStatusCode(url);
+            } catch(BadStatusCodeException e) {
+                System.out.println(e.toString(ConnectionManager.getStatusCodeNoException(url)));
+                return false;
+            }
         }
 
-        public static boolean testStatusCode(Response response) throws BadStatusCodeException {
-            return ConnectionManager.getStatusCode(response);
+        public static boolean testStatusCode(Response response) {
+            try{
+                return ConnectionManager.getStatusCode(response);
+            } catch(BadStatusCodeException e) {
+                System.out.println(e.toString(ConnectionManager.getStatusCodeNoException(response)));
+                return false;
+            }
         }
 
         public static List<Header> getResponseHeaders(String url) {

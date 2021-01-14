@@ -48,6 +48,12 @@ public class ConnectionManagerTest {
     }
 
     @ParameterizedTest
+    @ValueSource(strings = "https://swapi.dev/api/people/1/")
+    void doesReturnTrueFor200(String url) throws BadStatusCodeException {
+        Assertions.assertTrue(ConnectionManager.getStatusCode(url));
+    }
+
+    @ParameterizedTest
     @ValueSource(strings = "https://swapi.dev/api/people/100/") //page should return HTTP 404
     void doesHandleStatusCodes(String url) {
         Assertions.assertThrows(BadStatusCodeException.class,

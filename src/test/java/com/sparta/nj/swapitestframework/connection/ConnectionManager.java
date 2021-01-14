@@ -15,6 +15,7 @@ public class ConnectionManager {
     }
 
     public static Response connectToResource(String url) {
+        System.out.println("Response returned from:: " + url);
         return RestAssured.get(url);
     }
 
@@ -42,6 +43,10 @@ public class ConnectionManager {
 
     public static int getStatusCodeNoException(String url) {
         return RestAssured.get(url).getStatusCode();
+    }
+
+    public static int getStatusCodeNoException(Response response) {
+        return response.getStatusCode();
     }
 
     public static List<Header> getResourceHeaders(String url) {
@@ -77,6 +82,7 @@ public class ConnectionManager {
         if(headerValue == null) {
             throw new HeaderNotFoundException();
         } else {
+            System.out.println("RETURN:: " + headerName + " = " + headerValue);
             return headerValue;
         }
     }
@@ -94,6 +100,7 @@ public class ConnectionManager {
         if(headerValue == null) {
             throw new HeaderNotFoundException();
         } else {
+            System.out.println("RETURN:: " + headerName + " = " + headerValue);
             return headerValue;
         }
     }
@@ -102,11 +109,11 @@ public class ConnectionManager {
         List<Header> resourceHeaders = getResourceHeaders(url);
         for(Header header:resourceHeaders) {
             if(header.toString().contains(headerName)) {
-                System.out.println(headerName + " = " + headerValue + " is TRUE");
+                System.out.println("TEST:: " + headerName + " = " + headerValue + " is TRUE");
                 return given().response().when().get(url).getHeader(headerName).equals(headerValue);
             }
         }
-        System.out.println(headerName + " = " + headerValue + " is FALSE");
+        System.out.println("TEST:: " + headerName + " = " + headerValue + " is FALSE");
         return false;
     }
 
@@ -115,9 +122,11 @@ public class ConnectionManager {
         String url = response.then().extract().path("url").toString();
         for(Header header:resourceHeaders) {
             if(header.toString().contains(headerName)) {
+                System.out.println("TEST:: " + headerName + " = " + headerValue + " is TRUE");
                 return given().response().when().get(url).getHeader(headerName).equals(headerValue);
             }
         }
+        System.out.println("TEST:: " + headerName + " = " + headerValue + " is FALSE");
         return false;
     }
 }
