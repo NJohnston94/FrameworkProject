@@ -24,11 +24,11 @@ public class StarWarsAPITester {
             return ConnectionManager.connectToResource(url);
         }
 
-        public static Integer getStatusCode(String url) throws BadStatusCodeException {
+        public static boolean testStatusCode(String url) throws BadStatusCodeException {
             return ConnectionManager.getStatusCode(url);
         }
 
-        public static Integer getStatusCode(Response response) throws BadStatusCodeException {
+        public static boolean testStatusCode(Response response) throws BadStatusCodeException {
             return ConnectionManager.getStatusCode(response);
         }
 

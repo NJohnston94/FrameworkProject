@@ -18,25 +18,25 @@ public class ConnectionManager {
         return RestAssured.get(url);
     }
 
-    public static int getStatusCode(Response response) throws BadStatusCodeException {
+    public static boolean getStatusCode(Response response) throws BadStatusCodeException {
         int statusCode = response.getStatusCode();
         System.out.println("Response returned with HTTP Status Code:: " + statusCode);
 
         if(statusCode != 200) {
             throw new BadStatusCodeException();
         } else {
-            return statusCode;
+            return true;
         }
     }
 
-    public static int getStatusCode(String url) throws BadStatusCodeException {
+    public static boolean getStatusCode(String url) throws BadStatusCodeException {
         int statusCode = RestAssured.get(url).getStatusCode();
         System.out.println("Response returned with HTTP Status Code:: " + statusCode);
 
         if(statusCode != 200) {
             throw new BadStatusCodeException();
         } else {
-            return statusCode;
+            return true;
         }
     }
 
