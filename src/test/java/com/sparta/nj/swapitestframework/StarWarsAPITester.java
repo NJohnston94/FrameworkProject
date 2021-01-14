@@ -3,6 +3,7 @@ package com.sparta.nj.swapitestframework;
 import com.sparta.nj.swapitestframework.connection.ConnectionManager;
 import com.sparta.nj.swapitestframework.dto.DTOFactory;
 import com.sparta.nj.swapitestframework.dto.StarWarsAPIResource;
+import com.sparta.nj.swapitestframework.exceptions.BadStatusCodeException;
 import io.restassured.http.Header;
 import io.restassured.response.Response;
 import org.hamcrest.Matchers;
@@ -13,14 +14,19 @@ public class StarWarsAPITester {
 
     public static class APIConnection {
         public static Response getResponse(String url) {
+            try {
+                ConnectionManager.getStatusCode(url);
+            } catch (BadStatusCodeException e) {
+                System.out.println(e.toString(ConnectionManager.getStatusCodeNoException(url)));
+            }
             return ConnectionManager.connectToResource(url);
         }
 
-        public Integer getStatusCode(String url) {
-            return ConnectionManager.getStatusCode(getResponse(url));
+        public Integer getStatusCode(String url) throws BadStatusCodeException {
+            return ConnectionManager.getStatusCode(url);
         }
 
-        public Integer getStatusCode(Response response) {
+        public Integer getStatusCode(Response response) throws BadStatusCodeException {
             return ConnectionManager.getStatusCode(response);
         }
 
@@ -34,38 +40,6 @@ public class StarWarsAPITester {
     }
 
     public StarWarsAPIResource getDTO(String url) {
-        if(url.contains("people")) {
-            return DTOFactory.getResourceDTO(0, url);
-        } else if(url.contains("planets")) {
-            return DTOFactory.getResourceDTO(1, url);
-        } else if(url.contains("starships")) {
-            return DTOFactory.getResourceDTO(2, url);
-        } else if(url.contains("vehicles")) {
-            return DTOFactory.getResourceDTO(3, url);
-        } else if(url.contains("films")) {
-            return DTOFactory.getResourceDTO(4, url);
-        } else if(url.contains("species")) {
-            return DTOFactory.getResourceDTO(5, url);
-        } else {
-            return null;
-        }
+        return DTOFactory.getResourceDTO(DTOFactory.selectDTOFromURL(url), url);
     }
-
-//    public StarWarsAPIResource getDTO(Response response) {
-//        if(response.then().body("name", Matchers.equalTo())) {
-//            return DTOFactory.getResourceDTO(0, url);
-//        } else if(url.contains("planets")) {
-//            return DTOFactory.getResourceDTO(1, url);
-//        } else if(url.contains("starships")) {
-//            return DTOFactory.getResourceDTO(2, url);
-//        } else if(url.contains("vehicles")) {
-//            return DTOFactory.getResourceDTO(3, url);
-//        } else if(url.contains("films")) {
-//            return DTOFactory.getResourceDTO(4, url);
-//        } else if(url.contains("species")) {
-//            return DTOFactory.getResourceDTO(5, url);
-//        } else {
-//            return null;
-//        }
-//    }
 }
