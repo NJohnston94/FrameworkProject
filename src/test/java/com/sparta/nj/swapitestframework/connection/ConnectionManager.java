@@ -1,5 +1,6 @@
 package com.sparta.nj.swapitestframework.connection;
 
+import com.sparta.nj.swapitestframework.exceptions.BadStatusCodeException;
 import io.restassured.RestAssured;
 import io.restassured.http.Header;
 import io.restassured.response.Response;
@@ -14,11 +15,30 @@ public class ConnectionManager {
         return RestAssured.get(url);
     }
 
-    public static Integer getStatusCode(Response response) {
+    public static int getStatusCode(Response response) throws BadStatusCodeException {
         int statusCode = response.getStatusCode();
         System.out.println("Response returned with HTTP Status Code:: " + statusCode);
 
-        return statusCode;
+        if(statusCode != 200) {
+            throw new BadStatusCodeException();
+        } else {
+            return statusCode;
+        }
+    }
+
+    public static int getStatusCode(String url) throws BadStatusCodeException {
+        int statusCode = RestAssured.get(url).getStatusCode();
+        System.out.println("Response returned with HTTP Status Code:: " + statusCode);
+
+        if(statusCode != 200) {
+            throw new BadStatusCodeException();
+        } else {
+            return statusCode;
+        }
+    }
+
+    public static int getStatusCodeNoException(String url) {
+        return RestAssured.get(url).getStatusCode();
     }
 
     public static List<Header> getResourceHeaders(Response response) {
