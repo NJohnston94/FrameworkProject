@@ -1,7 +1,6 @@
 package com.sparta.nj.swapitestframework.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.ArrayList;
 
 public class PeopleDTO implements StarWarsAPIResource {
@@ -42,9 +41,63 @@ public class PeopleDTO implements StarWarsAPIResource {
     public PeopleDTO() {
     }
 
+    @Override
+    public boolean isValueNullOrEmpty(String dtoString) {
+        return dtoString.isEmpty();
+    }
 
+    @Override
+    public boolean isValueNullOrEmpty(ArrayList<String> dtoArray) {
+        return dtoArray.isEmpty();
+    }
 
+    @Override
+    public boolean doesResponseHaveAnyNullOrEmptyValues() {
+        for(String dtoDetail:getDTOStringDetails())  {
+            if(isValueNullOrEmpty(dtoDetail)) {
+                return false;
+            }
+        }
 
+        for(ArrayList<String> dtoDetail:getDTOArrayDetails()) {
+            if(isValueNullOrEmpty(dtoDetail)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public ArrayList<String> getDTOStringDetails() {
+        ArrayList<String> dtoDetailsList = new ArrayList<>();
+
+        dtoDetailsList.add(getName());
+        dtoDetailsList.add(getBirthYear());
+        dtoDetailsList.add(getEyeColour());
+        dtoDetailsList.add(getGender());
+        dtoDetailsList.add(getHairColour());
+        dtoDetailsList.add(getHeight());
+        dtoDetailsList.add(getMass());
+        dtoDetailsList.add(getSkinColour());
+        dtoDetailsList.add(getHomeWorld());
+        dtoDetailsList.add(getUrl());
+        dtoDetailsList.add(getCreatedOn());
+        dtoDetailsList.add(getEditedOn());
+
+        return dtoDetailsList;
+    }
+
+    @Override
+    public ArrayList<ArrayList<String>> getDTOArrayDetails() {
+        ArrayList<ArrayList<String>> dtoDetailsList = new ArrayList<>();
+
+        dtoDetailsList.add(getFilms());
+        dtoDetailsList.add(getSpecies());
+        dtoDetailsList.add(getStarships());
+        dtoDetailsList.add(getVehicles());
+
+        return dtoDetailsList;
+    }
 
     public String getName() {
         return name;

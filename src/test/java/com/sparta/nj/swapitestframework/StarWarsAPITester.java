@@ -39,7 +39,15 @@ public class StarWarsAPITester {
         }
     }
 
-    public StarWarsAPIResource getDTO(String url) {
-        return DTOFactory.getResourceDTO(DTOFactory.selectDTOFromURL(url), url);
+    public static class DTO {
+        public static StarWarsAPIResource getDTO(String url) {
+            return DTOFactory.getResourceDTO(DTOFactory.selectDTOFromURL(url), url);
+        }
+
+        public static boolean doesDtoHaveNullValues(StarWarsAPIResource dto) {
+            return dto.doesResponseHaveAnyNullOrEmptyValues();
+        }
+
     }
+
 }
