@@ -5,6 +5,7 @@ import com.sparta.nj.swapitestframework.dto.PeopleDTO;
 import com.sparta.nj.swapitestframework.dto.StarWarsAPIResource;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -22,13 +23,6 @@ public class PeopleDTOTest {
         lukeSkywalkerDTO = StarWarsAPITester.DTO.getDTO("https://swapi.dev/api/people/1/");
     }
 
-    @Test
-    @DisplayName("Are DTO values added to a list?")
-    void assertValuesAddedToList() {
-        assertThat(lukeSkywalkerDTO.getDTOStringDetails(), Matchers.hasSize(12));
-        assertThat(lukeSkywalkerDTO.getDTOArrayDetails(), Matchers.hasSize(4));
-    }
-
     @ParameterizedTest
     @ValueSource(strings = "")
     @DisplayName("Do empty strings return true?")
@@ -41,5 +35,11 @@ public class PeopleDTOTest {
     void isArrayNullOrEmpty() {
         ArrayList<String> emptyArray = new ArrayList<>();
         assertThat(lukeSkywalkerDTO.isValueNullOrEmpty(emptyArray), Matchers.equalTo(true));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"Nathan Johnston", "nathan Johnston", "Nathan johnston", "nathan johnston"})
+    void isNameCapitalised(String fullName) {
+        assertThat(lukeSkywalkerDTO.isNameCapitalised(fullName), Matchers.equalTo(true));
     }
 }

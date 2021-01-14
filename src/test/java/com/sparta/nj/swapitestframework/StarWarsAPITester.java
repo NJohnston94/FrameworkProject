@@ -9,6 +9,7 @@ import io.restassured.http.Header;
 import io.restassured.response.Response;
 import org.json.simple.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class StarWarsAPITester {
@@ -73,8 +74,24 @@ public class StarWarsAPITester {
             return DTOFactory.getResourceDTO(DTOFactory.selectDTOFromURL(url), url);
         }
 
+        public static boolean isDtoValueNull(StarWarsAPIResource dto, String jsonObjectName) {
+            return dto.isValueNullOrEmpty(jsonObjectName);
+        }
+
+        public static boolean isDtoValueNull(StarWarsAPIResource dto, ArrayList<String> jsonObjectName) {
+            return dto.isValueNullOrEmpty(jsonObjectName);
+        }
+
         public static boolean doesDtoHaveNullValues(StarWarsAPIResource dto) {
             return dto.doesResponseHaveAnyNullOrEmptyValues();
+        }
+
+        public static boolean isDtoNameCapitalised(StarWarsAPIResource dto) {
+            return dto.isNameCapitalised();
+        }
+
+        public static boolean isDtoValueCapitalised(StarWarsAPIResource dto, String dtoValue) {
+            return dto.isNameCapitalised(dtoValue);
         }
 
         public static JSONObject getJSON(StarWarsAPIResource dto) {

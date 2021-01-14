@@ -1,14 +1,11 @@
 package com.sparta.nj.swapitestframework.dto;
 
 import com.sparta.nj.swapitestframework.exceptions.InvalidRequestToDTO;
-import io.restassured.response.Response;
 import org.json.simple.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class PlanetDTO implements StarWarsAPIResource{
-
+public class StarshipDTO implements StarWarsAPIResource{
     @Override
     public boolean isValueNullOrEmpty(String string) {
         return false;
