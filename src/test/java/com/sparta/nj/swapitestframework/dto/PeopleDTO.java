@@ -1,42 +1,45 @@
 package com.sparta.nj.swapitestframework.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import java.util.ArrayList;
 
 public class PeopleDTO implements StarWarsAPIResource {
-    private Integer             resourceID;
+    private Integer resourceID;
     @JsonProperty("name")
-    private String              name;
+    private String name;
     @JsonProperty("birth_year")
-    private String              birthYear;
+    private String birthYear;
     @JsonProperty("eye_color")
-    private String              eyeColour;
+    private String eyeColour;
     @JsonProperty("gender")
-    private String              gender;
+    private String gender;
     @JsonProperty("hair_color")
-    private String              hairColour;
+    private String hairColour;
     @JsonProperty("height")
-    private String              height;
+    private String height;
     @JsonProperty("mass")
-    private String              mass;
+    private String mass;
     @JsonProperty("skin_color")
-    private String              skinColour;
+    private String skinColour;
     @JsonProperty("homeworld")
-    private String              homeWorld;
+    private String homeWorld;
     @JsonProperty("url")
-    private String              url;
+    private String url;
     @JsonProperty("films")
-    private ArrayList<String>   films;
+    private ArrayList<String> films;
     @JsonProperty("species")
-    private ArrayList<String>   species;
+    private ArrayList<String> species;
     @JsonProperty("starships")
-    private ArrayList<String>   starships;
+    private ArrayList<String> starships;
     @JsonProperty("vehicles")
-    private ArrayList<String>   vehicles;
+    private ArrayList<String> vehicles;
     @JsonProperty("created")
-    private String              createdOn;
+    private String createdOn;
     @JsonProperty("edited")
-    private String              editedOn;
+    private String editedOn;
 
     public PeopleDTO() {
     }
@@ -53,14 +56,14 @@ public class PeopleDTO implements StarWarsAPIResource {
 
     @Override
     public boolean doesResponseHaveAnyNullOrEmptyValues() {
-        for(String dtoDetail:getDTOStringDetails())  {
-            if(isValueNullOrEmpty(dtoDetail)) {
+        for (String dtoDetail : getDTOStringDetails()) {
+            if (isValueNullOrEmpty(dtoDetail)) {
                 return false;
             }
         }
 
-        for(ArrayList<String> dtoDetail:getDTOArrayDetails()) {
-            if(isValueNullOrEmpty(dtoDetail)) {
+        for (ArrayList<String> dtoDetail : getDTOArrayDetails()) {
+            if (isValueNullOrEmpty(dtoDetail)) {
                 return false;
             }
         }
@@ -99,131 +102,104 @@ public class PeopleDTO implements StarWarsAPIResource {
         return dtoDetailsList;
     }
 
-    public String getName() {
-        return name;
+    @Override
+    public JSONObject getJSONFromDTO() {
+        JSONObject dtoJSON = new JSONObject();
+
+        dtoJSON.put("Name", getName());
+        dtoJSON.put("Birth Year", getBirthYear());
+        dtoJSON.put("Eye Colour", getEyeColour());
+        dtoJSON.put("Gender", getGender());
+        dtoJSON.put("Hair Colour", getHairColour());
+        dtoJSON.put("Height", getHeight());
+        dtoJSON.put("Mass", getMass());
+        dtoJSON.put("Skin Colour", getSkinColour());
+        dtoJSON.put("Homeworld", getHomeWorld());
+        dtoJSON.put("URL", getUrl());
+        dtoJSON.put("Created", getCreatedOn());
+        dtoJSON.put("Edited", getEditedOn());
+
+        JSONArray films = new JSONArray();
+        films.addAll(getFilms());
+        dtoJSON.put("Films", films);
+
+        JSONArray species = new JSONArray();
+        species.addAll(getSpecies());
+        dtoJSON.put("Species", species);
+
+        JSONArray starships = new JSONArray();
+        starships.addAll(getStarships());
+        dtoJSON.put("Starships", starships);
+
+        JSONArray vehicles = new JSONArray();
+        vehicles.addAll(getVehicles());
+        dtoJSON.put("Vehicles", vehicles);
+
+        return dtoJSON;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getName() {
+        return name;
     }
 
     public String getBirthYear() {
         return birthYear;
     }
 
-    public void setBirthYear(String birthYear) {
-        this.birthYear = birthYear;
-    }
-
     public String getEyeColour() {
         return eyeColour;
-    }
-
-    public void setEyeColour(String eyeColour) {
-        this.eyeColour = eyeColour;
     }
 
     public String getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
     public String getHairColour() {
         return hairColour;
-    }
-
-    public void setHairColour(String hairColour) {
-        this.hairColour = hairColour;
     }
 
     public String getHeight() {
         return height;
     }
 
-    public void setHeight(String height) {
-        this.height = height;
-    }
-
     public String getMass() {
         return mass;
-    }
-
-    public void setMass(String mass) {
-        this.mass = mass;
     }
 
     public String getSkinColour() {
         return skinColour;
     }
 
-    public void setSkinColour(String skinColour) {
-        this.skinColour = skinColour;
-    }
-
     public String getHomeWorld() {
         return homeWorld;
-    }
-
-    public void setHomeWorld(String homeWorld) {
-        this.homeWorld = homeWorld;
     }
 
     public String getUrl() {
         return url;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
     public ArrayList<String> getFilms() {
         return films;
-    }
-
-    public void setFilms(ArrayList<String> films) {
-        this.films = films;
     }
 
     public ArrayList<String> getSpecies() {
         return species;
     }
 
-    public void setSpecies(ArrayList<String> species) {
-        this.species = species;
-    }
-
     public ArrayList<String> getStarships() {
         return starships;
-    }
-
-    public void setStarships(ArrayList<String> starships) {
-        this.starships = starships;
     }
 
     public ArrayList<String> getVehicles() {
         return vehicles;
     }
 
-    public void setVehicles(ArrayList<String> vehicles) {
-        this.vehicles = vehicles;
-    }
-
     public String getCreatedOn() {
         return createdOn;
-    }
-
-    public void setCreatedOn(String createdOn) {
-        this.createdOn = createdOn;
     }
 
     public String getEditedOn() {
         return editedOn;
     }
 
-    public void setEditedOn(String editedOn) {
-        this.editedOn = editedOn;
-    }
 }
