@@ -4,6 +4,7 @@ import com.sparta.nj.swapitestframework.connection.ConnectionManager;
 import com.sparta.nj.swapitestframework.dto.DTOFactory;
 import com.sparta.nj.swapitestframework.dto.StarWarsAPIResource;
 import com.sparta.nj.swapitestframework.exceptions.BadStatusCodeException;
+import com.sparta.nj.swapitestframework.exceptions.HeaderNotFoundException;
 import io.restassured.http.Header;
 import io.restassured.response.Response;
 import org.json.simple.JSONObject;
@@ -31,11 +32,39 @@ public class StarWarsAPITester {
         }
 
         public static List<Header> getResponseHeaders(String url) {
-            return ConnectionManager.getResourceHeaders(getResponse(url));
+            return ConnectionManager.getResourceHeaders(url);
         }
 
         public static List<Header> getResponseHeaders(Response response) {
             return ConnectionManager.getResourceHeaders(response);
+        }
+
+        public static String getHeaderValue(String headerName, String url) {
+            try {
+                return ConnectionManager.getHeaderValue(headerName, url);
+            } catch (HeaderNotFoundException e) {
+                e.toString();
+            }
+            System.out.println("getHeaderValue(" + headerName + ", " + url + ") returned NULL");
+            return null;
+        }
+
+        public static String getHeaderValue(String headerName, Response response) {
+            try {
+                return ConnectionManager.getHeaderValue(headerName, response);
+            } catch (HeaderNotFoundException e) {
+                e.toString();
+            }
+            System.out.println("getHeaderValue(" + headerName + ", " + response.toString() + ") returned NULL");
+            return null;
+        }
+
+        public static boolean testResponseHeaders(String headerName, String headerValue, String url) {
+            return ConnectionManager.testResponseHeaders(headerName, headerValue, url);
+        }
+
+        public static boolean testResponseHeaders(String headerName, String headerValue, Response response) {
+            return ConnectionManager.testResponseHeaders(headerName, headerValue, response);
         }
     }
 
