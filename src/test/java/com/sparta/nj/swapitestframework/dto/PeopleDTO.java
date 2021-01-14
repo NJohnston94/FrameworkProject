@@ -1,6 +1,7 @@
 package com.sparta.nj.swapitestframework.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.sparta.nj.swapitestframework.exceptions.InvalidRequestToDTO;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -70,8 +71,7 @@ public class PeopleDTO implements StarWarsAPIResource {
         return true;
     }
 
-    @Override
-    public ArrayList<String> getDTOStringDetails() {
+     private ArrayList<String> getDTOStringDetails() {
         ArrayList<String> dtoDetailsList = new ArrayList<>();
 
         dtoDetailsList.add(getName());
@@ -90,8 +90,7 @@ public class PeopleDTO implements StarWarsAPIResource {
         return dtoDetailsList;
     }
 
-    @Override
-    public ArrayList<ArrayList<String>> getDTOArrayDetails() {
+    private ArrayList<ArrayList<String>> getDTOArrayDetails() {
         ArrayList<ArrayList<String>> dtoDetailsList = new ArrayList<>();
 
         dtoDetailsList.add(getFilms());
@@ -136,6 +135,31 @@ public class PeopleDTO implements StarWarsAPIResource {
         dtoJSON.put("Vehicles", vehicles);
 
         return dtoJSON;
+    }
+
+    @Override
+    public boolean isNameCapitalised() {
+        String[] names = getName().split(" ");
+        for(String name : names){
+            char firstLetterActual = name.charAt(0);
+            char firstLetterExpected = name.toUpperCase().charAt(0);
+            if(firstLetterActual != firstLetterExpected) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean isNameCapitalised(String fullName) {
+        String[] names = fullName.split(" ");
+        for(String name : names){
+            char firstLetterActual = name.charAt(0);
+            char firstLetterExpected = name.toUpperCase().charAt(0);
+            if(firstLetterActual != firstLetterExpected) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public String getName() {
@@ -200,6 +224,10 @@ public class PeopleDTO implements StarWarsAPIResource {
 
     public String getEditedOn() {
         return editedOn;
+    }
+
+    public String getDiameter() throws InvalidRequestToDTO {
+        throw new InvalidRequestToDTO();
     }
 
 }
