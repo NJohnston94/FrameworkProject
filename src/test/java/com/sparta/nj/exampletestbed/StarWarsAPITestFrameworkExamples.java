@@ -4,6 +4,7 @@ import com.sparta.nj.swapitestframework.StarWarsAPITester;
 import com.sparta.nj.swapitestframework.dto.StarWarsAPIResource;
 import com.sparta.nj.swapitestframework.exceptions.InvalidRequestToDTO;
 
+import org.json.simple.JSONObject;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -130,7 +131,8 @@ public class StarWarsAPITestFrameworkExamples {
     @MethodSource("dtoAsArgument")
     @DisplayName("Return a JSONObject from the source DTO")
     void testGetJSON(StarWarsAPIResource characterDTO) {
-        characterDTO.getJSONFromDTO();
+        JSONObject characterJSON = characterDTO.getJSONFromDTO();
+        System.out.println(characterJSON.toJSONString());
     }
 
     @Test

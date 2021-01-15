@@ -130,6 +130,7 @@ public class StarWarsAPITester {
         public static JSONObject getJSON(StarWarsAPIResource dto) {
             return dto.getJSONFromDTO();
         }
+
     }
 
 }
