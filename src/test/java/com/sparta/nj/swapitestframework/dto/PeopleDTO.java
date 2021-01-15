@@ -6,6 +6,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class PeopleDTO implements StarWarsAPIResource {
     private Integer resourceID;
@@ -143,6 +144,7 @@ public class PeopleDTO implements StarWarsAPIResource {
     @Override
     public boolean isNameCapitalised() {
         String[] names = getName().split(" ");
+        System.out.println(Arrays.toString(names));
         for(String name : names){
             char firstLetterActual = name.charAt(0);
             char firstLetterExpected = name.toUpperCase().charAt(0);
@@ -154,6 +156,7 @@ public class PeopleDTO implements StarWarsAPIResource {
     }
 
     public boolean isNameCapitalised(String fullName) {
+        System.out.println(fullName);
         String[] names = fullName.split(" ");
         for(String name : names){
             char firstLetterActual = name.charAt(0);

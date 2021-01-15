@@ -25,6 +25,7 @@ public class StarWarsAPITestFrameworkExamples {
     static StarWarsAPIResource obiwanKenobiDTO  = StarWarsAPITester.DTO.getDTO(obiwanKenobiURL);
 
     @Nested
+    @Disabled
     @DisplayName("API Connections Testing")
     public class apiConnectionExampleTests {
 
