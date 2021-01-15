@@ -125,7 +125,7 @@ public class StarWarsAPITestFrameworkExamples {
     @MethodSource("dtoAsArgument")
     @DisplayName("Test that the DTO value is capitalised and return a boolean")
     void testValueCapitalisation(StarWarsAPIResource characterDTO) {
-        Assertions.assertTrue(StarWarsAPITester.DTO.isDtoValueCapitalised(characterDTO, "homeworld"));
+        Assertions.assertFalse(StarWarsAPITester.DTO.isDtoValueCapitalised(characterDTO, "homeworld"));
     }
 
     @ParameterizedTest
