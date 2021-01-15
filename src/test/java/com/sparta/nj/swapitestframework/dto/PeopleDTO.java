@@ -59,15 +59,18 @@ public class PeopleDTO implements StarWarsAPIResource {
     public boolean doesResponseHaveAnyNullOrEmptyValues() {
         for (String dtoDetail : getDTOStringDetails()) {
             if (isValueNullOrEmpty(dtoDetail)) {
+                System.out.println(dtoDetail + "is Null or Empty");
                 return false;
             }
         }
 
         for (ArrayList<String> dtoDetail : getDTOArrayDetails()) {
             if (isValueNullOrEmpty(dtoDetail)) {
+                System.out.println(dtoDetail + "is Null or Empty");
                 return false;
             }
         }
+        System.out.println("StarWarsAPIResource object has no Null or Empty values");
         return true;
     }
 

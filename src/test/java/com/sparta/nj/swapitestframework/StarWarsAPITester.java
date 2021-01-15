@@ -8,6 +8,7 @@ import com.sparta.nj.swapitestframework.exceptions.HeaderNotFoundException;
 import io.restassured.http.Header;
 import io.restassured.response.Response;
 import org.json.simple.JSONObject;
+import org.junit.jupiter.api.Assertions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,14 @@ public class StarWarsAPITester {
                 System.out.println(e.toString(ConnectionManager.getStatusCodeNoException(url)));
             }
             return ConnectionManager.connectToResource(url);
+        }
+
+        public static void assertStatusCode(String url) {
+            Assertions.assertTrue(testStatusCode(url));
+        }
+
+        public static void assertStatusCode(Response response) {
+            Assertions.assertTrue(testStatusCode(response));
         }
 
         public static boolean testStatusCode(String url) {
@@ -70,6 +79,14 @@ public class StarWarsAPITester {
             return null;
         }
 
+        public static void assertResponseHeaders(String headerName, String headerValue, String url) {
+            Assertions.assertTrue(ConnectionManager.testResponseHeaders(headerName, headerValue, url));
+        }
+
+        public static void assertResponseHeaders(String headerName, String headerValue, Response response) {
+            Assertions.assertTrue(ConnectionManager.testResponseHeaders(headerName, headerValue, response));
+        }
+
         public static boolean testResponseHeaders(String headerName, String headerValue, String url) {
             return ConnectionManager.testResponseHeaders(headerName, headerValue, url);
         }
@@ -81,7 +98,13 @@ public class StarWarsAPITester {
 
     public static class DTO {
         public static StarWarsAPIResource getDTO(String url) {
-            return DTOFactory.getResourceDTO(DTOFactory.selectDTOFromURL(url), url);
+            if(ConnectionManager.getStatusCodeNoException(url) == 200){
+                return DTOFactory.getResourceDTO(DTOFactory.selectDTOFromURL(url), url);
+            } else {
+                System.out.println("The StarWarsAPIResource object could not be populated by " + url);
+                APIConnection.testStatusCode(url);
+                return null;
+            }
         }
 
         public static boolean isDtoValueNull(StarWarsAPIResource dto, String jsonObjectName) {

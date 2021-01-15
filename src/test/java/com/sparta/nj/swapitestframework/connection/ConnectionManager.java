@@ -90,10 +90,12 @@ public class ConnectionManager {
     public static String getHeaderValue(String headerName, Response response) throws HeaderNotFoundException {
         String headerValue = null;
         List<Header> resourceHeaders = getResourceHeaders(response);
-        String url = response.then().extract().path("url").toString();
-        for(Header header:resourceHeaders) {
-            if(header.toString().contains(headerName)) {
-                headerValue = given().response().when().get(url).getHeader(headerName);
+        if(getStatusCodeNoException(response) == 200) {
+            String url = response.then().extract().path("url").toString();
+            for(Header header:resourceHeaders) {
+                if(header.toString().contains(headerName)) {
+                    headerValue = given().response().when().get(url).getHeader(headerName);
+                }
             }
         }
 
